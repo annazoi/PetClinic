@@ -13,6 +13,8 @@ import entries.Other;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -214,40 +216,61 @@ public class AddPetPage extends JFrame implements ActionListener{
 				
 				System.out.print(cat);
 				
-				MainUIPage main = new MainUIPage();
 				
 				
 			} else if (isDog) {
-			    JLabel needHaircatLabel = new JLabel("Dog needs Haircat?");
-			    JLabel yes = new JLabel("Yes");
-			    JLabel no = new JLabel("No");
-			    radioButtonPanel.add(needHaircatLabel);
-			    needHaircatLabel.setBounds(20, 80, 150, 30);
+                            
+                            
+                            
+                            int a = JOptionPane.showConfirmDialog(radioButtonPanel,"Dog needs Haircat?" , "For Dog", JOptionPane.YES_NO_OPTION);
+
+                            boolean isNeedHaircat = needHaircatTrue.isSelected();
+
+                            if (a == JOptionPane.YES_OPTION) {
+                                needHaircatTrue.setSelected(true);
+                                System.out.print("Yes needs Haircat");
+                                
+                            } else if (a == JOptionPane.NO_OPTION){
+                                needHaircatTrue.setSelected(false);
+                                System.out.print("Doesn't need Haircat");
+                            }
+
+
+//			    JLabel needHaircatLabel = new JLabel("Dog needs Haircat?");
+//			    JButton yes = new JButton("Yes");
+//			    JButton no = new JButton("No");
+//			    radioButtonPanel.add(needHaircatLabel);
+//			    needHaircatLabel.setBounds(20, 80, 150, 30);
 			    
-			    radioButtonPanel.add(yes);
-			    yes.setBounds(200, 80, 50, 30);
-			    radioButtonPanel.add(no);
-			    no.setBounds(300, 80, 80, 30);
-			    
-				radioButtonPanel.add(needHaircatTrue);
-				needHaircatTrue.setBounds(240, 80, 30, 30);
-				needHaircatTrue.setBackground(dark);
-				needHaircatGroup.add(needHaircatTrue);
+//			    radioButtonPanel.add(yes);
+//			    yes.setBounds(200, 80, 50, 30);
+//			    radioButtonPanel.add(no);
+//			    no.setBounds(300, 80, 80, 30);
+//			    
+//				radioButtonPanel.add(needHaircatTrue);
+//				needHaircatTrue.setBounds(240, 80, 30, 30);
+//				needHaircatTrue.setBackground(dark);
+//				needHaircatGroup.add(needHaircatTrue);
 				
-				radioButtonPanel.add(needHaircatFalse);
-				needHaircatFalse.setBounds(357, 80, 30, 30);
-				needHaircatFalse.setBackground(dark);
-				needHaircatGroup.add(needHaircatFalse);
+//				radioButtonPanel.add(needHaircatFalse);
+//				needHaircatFalse.setBounds(357, 80, 30, 30);
+//				needHaircatFalse.setBackground(dark);
+//				needHaircatGroup.add(needHaircatFalse);
 				
-				boolean isNeedHaircat = needHaircatTrue.isSelected();
 				
-				if (isNeedHaircat) {
-					needHaircatTrue.isEnabled();
+//				
+//				if (isNeedHaircat) {
+//					needHaircatTrue.setSelected(isDog);
+////                                        needHaircatTrue.setEnabled(isDog);
+//                                        
+//                                        
 //					needHaircatTrue.setVisible(isNeedHaircat);
-				} else {
-					needHaircatFalse.isEnabled();
-//					needHaircatFalse.setVisible(isNeedHaircat);
-				}
+//				} else {
+//					needHaircatFalse.setSelected(isDog);
+////					needHaircatFalse.setVisible(isNeedHaircat);
+//				}
+                                
+                                
 				Pet dog = new Dog (name, owner, address, age, isMale, isNeedHaircat);
 				
 				eShopData.add(dog);
@@ -255,8 +278,6 @@ public class AddPetPage extends JFrame implements ActionListener{
 				ClinicData.setPets(eShopData);	
 				
 				System.out.print(dog);
-				
-				MainUIPage main = new MainUIPage();
 				
 				
 			} else if (isOther) {
@@ -269,9 +290,7 @@ public class AddPetPage extends JFrame implements ActionListener{
 				
 				System.out.print(other);
 				
-				MainUIPage main = new MainUIPage();
 			}
-			
 		}
 		
 	}
@@ -279,11 +298,5 @@ public class AddPetPage extends JFrame implements ActionListener{
 	public ArrayList<Pet> getPets() {
         return eShopData;
     }
-//	
-//	@Override
-//	public void actionPerformed(ActionEvent e) {
-//		if (e.getSource() == addPetButton) {
-//			MainUIPage mainUIPage = new MainUIPage();
-//		}	
-//	}
+        
 }
