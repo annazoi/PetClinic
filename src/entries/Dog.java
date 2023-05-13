@@ -9,8 +9,8 @@ public class Dog extends Pet{
     
     public Dog (String name) {}
     
-    public Dog (String name, String owner, String address, int age, boolean male, boolean needsHaircat) {
-    	super(name, owner, address, age, male);
+    public Dog (String name, String owner, String address, int age, Date introDate,boolean male, boolean needsHaircat) {
+    	super(name, owner, address, age, introDate, male);
         this.needsHaircat = needsHaircat;
     }
 
@@ -31,13 +31,12 @@ public class Dog extends Pet{
     @Override
     public String toString () {
     	String gender = getMale() ? "Male" : "Female";
-    	String haircat = needsHaircat ? "Needs Haircat" : "Don't needs Haircat";
-    	return getName() + " [Owner: "+ getOwner() +"] [Address: " +getAddress()+ "] [Age: "+getAge()+ "] ";
+    	String haircat = needsHaircat ? "Needs Haircat" : "Doesn't need Haircat";
+    	return getName() + " [Owner: "+ getOwner() +"] [Address: " +getAddress()+ "] [Age: "+getAge()+ "] [IntroDate: " +getIntroDate()+ "] [Male: " +getMale()+"] [Needs Haircat: " +needsHaircat+ "] ";
     }
     
     @Override
     public void getPetInfo() {
-        
+        System.out.println(" [Name: " +getName()+ "] [Owner: " +getOwner()+ "] [Address: " +getAddress()+ "] [Age: " +getAge()+ "] [IntroDate: "  +getIntroDate()+ "] [Male: " +getMale()+"] [Needs Haircat: " +needsHaircat+ "] ");
     }
 }
-

@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
+ */
 package entries;
 
 import java.util.Date;
@@ -9,7 +13,7 @@ public abstract class Pet {
     private String owner;
     private String address;
     private int age;
-//    private Date introDate;
+    private Date introDate;
     private Boolean male;
 
     /**
@@ -18,12 +22,12 @@ public abstract class Pet {
     
     public Pet() {}
     
-    public Pet (String name, String owner, String address, int age, boolean male) {
+    public Pet (String name, String owner, String address, int age, Date introDate, boolean male) {
         this.name = name;
         this.owner = owner;
         this.address = address;
         this.age = age;
-//        this.introDate = introDate;
+        this.introDate = introDate;
         this.male = male;   
     }
             
@@ -83,16 +87,16 @@ public abstract class Pet {
     /**
      * @return the introDate
      */
-//    public Date getIntroDate() {
-//        return introDate;
-//    }
+    public Date getIntroDate() {
+        return introDate;
+    }
 
     /**
      * @param introDate the introDate to set
      */
-//    public void setIntroDate(Date introDate) {
-//        this.introDate = introDate;
-//    }
+    public void setIntroDate(Date introDate) {
+        this.introDate = introDate;
+    }
 
     /**
      * @return the male
@@ -110,10 +114,9 @@ public abstract class Pet {
     
     public String toString () {
     	String gender = male ? "male" : "female";
-    	return name + " [Owner: "+ owner +"] [Address: " +address+ "] [Age: "+age+ "] ";
+    	return name + " [Owner: "+ owner +"] [Address: " +address+ "] [Age: "+age+ "] [IntroDate: " +introDate+ "]";
     }
     
     public abstract void getPetInfo ();
         
 }
-

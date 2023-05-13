@@ -187,6 +187,7 @@ public class AddPetPage extends JFrame implements ActionListener{
 		String name	= nameText.getText();
 		String owner = ownerText.getText();
 		int age = Integer.parseInt(ageText.getText());
+		Date introDate = new Date();
 		String address = addressText.getText();
 		
 		boolean isMale = maleRadioButton.isSelected();
@@ -208,7 +209,7 @@ public class AddPetPage extends JFrame implements ActionListener{
 		if (e.getSource() == addPetButton) {
 			
 			if (isCat) {
-				Pet cat = new Cat (name, owner, address, age, isMale);
+				Pet cat = new Cat (name, owner, address, age, introDate, isMale);
 				
 				eShopData.add(cat);		
 				
@@ -216,62 +217,28 @@ public class AddPetPage extends JFrame implements ActionListener{
 				
 				System.out.print(cat);
 				
+				MainUIPage main = new MainUIPage();
+				
 				
 				
 			} else if (isDog) {
                             
-                            
-                            
-                            int a = JOptionPane.showConfirmDialog(radioButtonPanel,"Dog needs Haircat?" , "For Dog", JOptionPane.YES_NO_OPTION);
+				int a = JOptionPane.showConfirmDialog(radioButtonPanel,"Dog needs Haircat?" , "For Dog", JOptionPane.YES_NO_OPTION);
 
-                            boolean isNeedHaircat = needHaircatTrue.isSelected();
+                boolean isNeedHaircat = needHaircatTrue.isSelected();
 
-                            if (a == JOptionPane.YES_OPTION) {
-                                needHaircatTrue.setSelected(true);
-                                System.out.print("Yes needs Haircat");
+                if (a == JOptionPane.YES_OPTION) {
+                	
+                    needHaircatTrue.setSelected(true);
+//                    System.out.print("Yes needs Haircat");
                                 
-                            } else if (a == JOptionPane.NO_OPTION){
-                                needHaircatTrue.setSelected(false);
-                                System.out.print("Doesn't need Haircat");
-                            }
+                } else if (a == JOptionPane.NO_OPTION){
+                    needHaircatTrue.setSelected(false);
+//                    System.out.print("Doesn't need Haircat");
+                }
 
-
-//			    JLabel needHaircatLabel = new JLabel("Dog needs Haircat?");
-//			    JButton yes = new JButton("Yes");
-//			    JButton no = new JButton("No");
-//			    radioButtonPanel.add(needHaircatLabel);
-//			    needHaircatLabel.setBounds(20, 80, 150, 30);
-			    
-//			    radioButtonPanel.add(yes);
-//			    yes.setBounds(200, 80, 50, 30);
-//			    radioButtonPanel.add(no);
-//			    no.setBounds(300, 80, 80, 30);
-//			    
-//				radioButtonPanel.add(needHaircatTrue);
-//				needHaircatTrue.setBounds(240, 80, 30, 30);
-//				needHaircatTrue.setBackground(dark);
-//				needHaircatGroup.add(needHaircatTrue);
-				
-//				radioButtonPanel.add(needHaircatFalse);
-//				needHaircatFalse.setBounds(357, 80, 30, 30);
-//				needHaircatFalse.setBackground(dark);
-//				needHaircatGroup.add(needHaircatFalse);
-				
-				
-//				
-//				if (isNeedHaircat) {
-//					needHaircatTrue.setSelected(isDog);
-////                                        needHaircatTrue.setEnabled(isDog);
-//                                        
-//                                        
-//					needHaircatTrue.setVisible(isNeedHaircat);
-//				} else {
-//					needHaircatFalse.setSelected(isDog);
-////					needHaircatFalse.setVisible(isNeedHaircat);
-//				}
                                 
-                                
-				Pet dog = new Dog (name, owner, address, age, isMale, isNeedHaircat);
+				Pet dog = new Dog (name, owner, address, age, introDate, isMale, isNeedHaircat);
 				
 				eShopData.add(dog);
 				
@@ -279,16 +246,19 @@ public class AddPetPage extends JFrame implements ActionListener{
 				
 				System.out.print(dog);
 				
+				MainUIPage main = new MainUIPage();
 				
 			} else if (isOther) {
 				
-				Pet other = new Other (name, owner, address, age, isMale);
+				Pet other = new Other (name, owner, address, age, introDate, isMale);
 				
 				eShopData.add(other);
 				
 				ClinicData.setPets(eShopData);
 				
 				System.out.print(other);
+				
+				MainUIPage main = new MainUIPage();
 				
 			}
 		}

@@ -18,12 +18,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
 
-import ui.AddPetPage;
 import entries.ClinicData;
 import entries.Pet;
 
-public class MainUIPage implements ActionListener {
-	
+public class MainUIPage extends JFrame implements ActionListener {
+//	auto mpike epeidi valame extends JFrame
+	private static final long serialVersionUID = 1L;
 	Color light = new Color(148, 180, 108);
     Color dark = new Color(98, 129, 58);
     Color veryDark = new Color(78, 96, 55);
@@ -39,8 +39,10 @@ public class MainUIPage implements ActionListener {
 	JPanel servicesPanel = new JPanel();
 	
 	JButton addPetButton = new JButton("Add Pet");
-	JButton addServiceButton = new JButton("Add Service to Pet");
-	JButton showEntriesButton = new JButton("Show entries");
+//	Vazoume agkiles <html> gia na kanei new line kai na fainetai olo to text stis mikres diastaseis tou button
+//	An 8elame na to kopsoume se sugkekrimeno simeio 8a legame (<html>Add Service<br> </br>to Pet</html>")
+	JButton addServiceButton = new JButton("<html>Add Service to Pet</html>");
+	JButton showEntriesButton = new JButton("<html>Show entries</html>");
 	
 	Border border = BorderFactory.createLineBorder(Color.black);
 	
@@ -54,7 +56,7 @@ public class MainUIPage implements ActionListener {
 	public void init () {
 		frame.setTitle("PetClinic");
 		frame.setVisible(true);
-		frame.setSize(1200, 800);
+		frame.setSize(600, 400);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(null);
         frame.setResizable(false);
@@ -65,19 +67,19 @@ public class MainUIPage implements ActionListener {
         frame.add(buttonsPanel);
         frame.add(servicesPanel);
         
-        clinicLabel.setBounds(0, 0, 800, 30);
+        clinicLabel.setBounds(0, 0, 400, 30);
         clinicLabel.setFont(new Font("MV Boli", Font.BOLD, 16));
         
         
-        services.setBounds(300, 0, 750, 40);
+        services.setBounds(200, 0, 300, 40);
         services.setBackground(veryDark);
         services.add(servicesLabel);
         services.setBorder(border);
         
         servicesLabel.setFont(new Font("MV Boli", Font.BOLD, 16));
-        servicesLabel.setBounds(400, 0, 750, 40);
+        servicesLabel.setBounds(100, 0, 200, 40);
         
-        buttonsPanel.setBounds(0, 30, 250, 970);
+        buttonsPanel.setBounds(0, 30, 120, 400);
         buttonsPanel.setBackground(dark);
         buttonsPanel.setBorder(border);
         buttonsPanel.add(addPetButton);
@@ -86,7 +88,7 @@ public class MainUIPage implements ActionListener {
         buttonsPanel.setLayout(null);
 //        buttonsPanel.add(scrollPane);
         
-        servicesPanel.setBounds(250, 30, 950, 970);
+        servicesPanel.setBounds(120, 30, 480, 370);
         servicesPanel.setBackground(dark);
         servicesPanel.setBorder(border);
         servicesPanel.setLayout(null);
@@ -95,17 +97,17 @@ public class MainUIPage implements ActionListener {
         
         addPetButton.setBackground(light);
         addPetButton.setFocusable(false);
-        addPetButton.setBounds(75, 600, 100, 30);
+        addPetButton.setBounds(10, 150, 100, 30);
         addPetButton.addActionListener(this);
         
         addServiceButton.setBackground(light);
         addServiceButton.setFocusable(false);
-        addServiceButton.setBounds(30, 640, 190, 30);
+        addServiceButton.setBounds(10, 190, 100, 60);
         addServiceButton.addActionListener(this);
         
         showEntriesButton.setBackground(light);
         showEntriesButton.setFocusable(false);
-        showEntriesButton.setBounds(50, 680, 150, 30);
+        showEntriesButton.setBounds(10, 260, 100, 60);
         showEntriesButton.addActionListener(this);
         
 //        for (Pet p : eShopData) {
@@ -126,7 +128,7 @@ public class MainUIPage implements ActionListener {
        
         JList<Pet> list = new JList<Pet>(listModel);
         
-        list.setBounds(5, 50, 240, 400);
+        list.setBounds(5, 5, 110, 120);
         list.setBackground(veryDark);
         	
         JScrollPane scrollPane = new JScrollPane(list);

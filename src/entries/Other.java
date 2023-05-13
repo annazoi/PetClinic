@@ -9,24 +9,21 @@ public class Other extends Pet {
     public Other () {}
     
     
-    public Other (String name, String owner, String address, int age, boolean male) {
-    	super(name, owner, address, age, male);
+    public Other (String name, String owner, String address, int age, Date introDate, boolean male) {
+    	super(name, owner, address, age, introDate, male);
         
     }
     
     @Override
     public String toString () {
     	String gender = getMale() ? "Male" : "Female";
-    	return getName() + " [Owner: "+ getOwner() +"] [Address: " +getAddress()+ "] [Age: "+getAge()+ "] ";
+    	return getName() + " [Owner: "+ getOwner() +"] [Address: " +getAddress()+ "] [Age: "+getAge()+ "] [IntroDate: " +getIntroDate()+ "] [Male: " +getMale()+"] ";
     }
 
-	@Override
-	public void getPetInfo() {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void getPetInfo() {
+    System.out.println(" [Name: " +getName()+ "] [Owner: " +getOwner()+ "] [Address: " +getAddress()+ "] [Age: " +getAge()+ "] [IntroDate: "  +getIntroDate()+ "] [Male: " +getMale()+"] ");
+    }
     
 }
-
-
 
