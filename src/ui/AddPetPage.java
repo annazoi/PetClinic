@@ -72,8 +72,11 @@ public class AddPetPage extends JFrame implements ActionListener{
     JLabel catLabel = new JLabel("Cat");
     JLabel dogLabel = new JLabel("Dog");
     JLabel otherLabel = new JLabel("Other");
+    
+    private MainUIPage main;
 	
-	AddPetPage () {
+	AddPetPage (MainUIPage main) {
+		this.main = main;
 		this.init();
 	}
 	public void init () {
@@ -83,7 +86,7 @@ public class AddPetPage extends JFrame implements ActionListener{
         frame.setLayout(null);
         frame.setResizable(false);
         frame.setFocusable(true);
-        frame.setVisible(true);
+//        frame.setVisible(true);
         frame.getContentPane().setBackground(light);
         frame.add(addPetLabel);
         frame.add(textFieldPanel);
@@ -177,10 +180,15 @@ public class AddPetPage extends JFrame implements ActionListener{
         genderGroup.add(maleRadioButton);
         genderGroup.add(femaleRadioButton);
         typeGroup.add(otherRadioButton);
-        typeGroup.add(catRadioButton);;
+        typeGroup.add(catRadioButton);
         typeGroup.add(dogRadioButton);
         
 	}
+	
+	public void showFrame() {
+		frame.setVisible(true);
+	}
+	
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -215,10 +223,10 @@ public class AddPetPage extends JFrame implements ActionListener{
 				
 				ClinicData.setPets(eShopData);				
 				
-				System.out.print(cat);
+				System.out.print(cat + "\n");
 				
-				MainUIPage main = new MainUIPage();
-				
+				main.addData(name);
+				frame.setVisible(false);
 				
 				
 			} else if (isDog) {
@@ -244,9 +252,10 @@ public class AddPetPage extends JFrame implements ActionListener{
 				
 				ClinicData.setPets(eShopData);	
 				
-				System.out.print(dog);
-				
-				MainUIPage main = new MainUIPage();
+				System.out.print(dog + "\n");
+					
+				main.addData(name);
+				frame.setVisible(false);
 				
 			} else if (isOther) {
 				
@@ -256,11 +265,13 @@ public class AddPetPage extends JFrame implements ActionListener{
 				
 				ClinicData.setPets(eShopData);
 				
-				System.out.print(other);
+				System.out.print(other + "\n");
 				
-				MainUIPage main = new MainUIPage();
+				main.addData(name);
+				frame.setVisible(false);
 				
 			}
+
 		}
 		
 	}

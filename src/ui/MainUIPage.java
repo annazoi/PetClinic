@@ -4,12 +4,19 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -20,6 +27,7 @@ import javax.swing.border.Border;
 
 import entries.ClinicData;
 import entries.Pet;
+import entries.Service;
 
 public class MainUIPage extends JFrame implements ActionListener {
 //	auto mpike epeidi valame extends JFrame
@@ -27,11 +35,12 @@ public class MainUIPage extends JFrame implements ActionListener {
 	Color light = new Color(148, 180, 108);
     Color dark = new Color(98, 129, 58);
     Color veryDark = new Color(78, 96, 55);
-    
+   
 	JFrame frame = new JFrame();
 	
 	JLabel clinicLabel = new JLabel("Clinic");
 	JLabel servicesLabel = new JLabel("Services");
+	JLabel nameLabel = new JLabel();
 	
 	JPanel services = new JPanel();
 	JPanel buttonsPanel = new JPanel();
@@ -46,11 +55,22 @@ public class MainUIPage extends JFrame implements ActionListener {
 	
 	Border border = BorderFactory.createLineBorder(Color.black);
 	
+	GridLayout grid = new GridLayout(3, 3);
+	
+	DataHandler handler = new DataHandler();
+	
+	private AddPetPage addPetPage;
+	
+	JScrollPane scrollPetName = new JScrollPane();
+	
 //	JScrollPane scrollPane = new JScrollPane();
 	
-//	private Pet[] eShopData;
+	static CurrentEntriesPage entries;
+	
 
-	public MainUIPage () {
+	public MainUIPage (CurrentEntriesPage entries) {
+//		MainUIPage.entries but not this.entries because entries is static variable
+		MainUIPage.entries = entries;
 		this.init();
 	}
 	public void init () {
@@ -86,12 +106,13 @@ public class MainUIPage extends JFrame implements ActionListener {
         buttonsPanel.add(addServiceButton);
         buttonsPanel.add(showEntriesButton);
         buttonsPanel.setLayout(null);
-//        buttonsPanel.add(scrollPane);
+        buttonsPanel.add(petListPanel);
         
         servicesPanel.setBounds(120, 30, 480, 370);
         servicesPanel.setBackground(dark);
         servicesPanel.setBorder(border);
-        servicesPanel.setLayout(null);
+//      grid -> GridLayout 3X3  
+        servicesPanel.setLayout(grid);
         
 //        set buttons
         
@@ -110,67 +131,151 @@ public class MainUIPage extends JFrame implements ActionListener {
         showEntriesButton.setBounds(10, 260, 100, 60);
         showEntriesButton.addActionListener(this);
         
-//        for (Pet p : eShopData) {
-//        	buttonsPanel.add(petListPanel);
-//        	petListPanel.setBounds(0, 30, 250, 700);
-//        	petListPanel.setLayout(null);
-//        	petListPanel.setBackground(dark);
-//        	
-//        	JLabel dt = new JLabel(p.toString());
-//        	dt.setBounds(10, 50, 300, 25);
-//			dt.setVisible(true);
-//        	
-//        	petListPanel.add(dt);
-        
-        JTextArea lists = new JTextArea();
-        
-        DefaultListModel listModel = new DefaultListModel<>();
+        addPetPage = new AddPetPage(this);
+              
+        petListPanel.add(scrollPetName);
+        petListPanel.setBackground(veryDark);
+        petListPanel.setBounds(10, 10, 100, 100);
+        petListPanel.add(nameLabel);
        
-        JList<Pet> list = new JList<Pet>(listModel);
-        
-        list.setBounds(5, 5, 110, 120);
-        list.setBackground(veryDark);
-        	
-        JScrollPane scrollPane = new JScrollPane(list);
-        
-        
-//        lists.add(list);
-//        lists.setBounds(5, 50, 240, 400);
-//        lists.setBackground(veryDark);
-        
-        
-        
-        buttonsPanel.add(scrollPane);
-        buttonsPanel.add(list);
-        buttonsPanel.add(lists);
-        
-        for (Pet p : ClinicData.getPets()) {
-			listModel.addElement(p);
-        	
-		}
-        
-      
-        
-        
-        
-        	
-        
-        
-	}
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == showEntriesButton) {
-			CurrentEntriesPage currentEntriesPage = new CurrentEntriesPage();
-		}
-		else if (e.getSource() == addPetButton) {
-			
-		        
-			
-			
-			AddPetPage addPetPage = new AddPetPage();
-			
-		}
 	}
 	
-}
+	
+//	 public void generateViewWithServices () {
+//		 for (Service s : ClinicData.getServices()) {
+//			 JPanel panel = new JPanel();
+//			 
+//			 
+//			 JLabel label1 = new JLabel(); 
+//			 JLabel label2 = new JLabel(); 
+//			 
+//			 servicesPanel.add(panel);
+//			 servicesPanel.add(label1);
+//			 servicesPanel.add(label2);
+//			 
+//			 panel.setBackground(light);
+//			 panel.add(label1);
+//			 panel.add(label2);
+//			 
+//			 label1.setText(s.getTitle());
+//			 label2.setText(s.getPrice()+"");
+//		 }
+//     }
+	 
+	 public void dataFromTxt () {
+			for (Service washing : ClinicData.getServicesFromTxt()) {
+			washing.setTitle("washing");
+			washing.setPrice(10);
+			washing.setTax(0.24);
+			washing.setCategory("Animal");
+			washing.setDescription("washing for all pets");
+		}
+		
+		for (Service grooming : ClinicData.getServicesFromTxt()) {
+			grooming.setTitle("grooming");
+			grooming.setPrice(20);
+			grooming.setTax(0.24);
+			grooming.setCategory("Dog");
+			grooming.setDescription("grooming for dogs only");
+		}
+		
+		for (Service nailClipping : ClinicData.getServicesFromTxt()) {
+			nailClipping.setTitle("nail_clipping");
+			nailClipping.setPrice(10);
+			nailClipping.setTax(0.24);
+			nailClipping.setCategory("Aminal");
+			nailClipping.setDescription("taking care of the pet nails/talons");
+		}
+		
+		for (Service shot : ClinicData.getServicesFromTxt()) {
+			shot.setTitle("shot");
+			shot.setPrice(20);
+			shot.setTax(0.24);
+			shot.setCategory("Animal");
+			shot.setDescription("making the shots to the pet");
+		}
+	 }
 
+	 public void updateData () {
+		 nameLabel.setText("<html>" +handler.getData().replaceAll("\n", "<br>") + "</html>");
+	 }
+	 
+	 public void addData(String newData) {
+		 handler.addData(newData);
+		 updateData();
+	 }
+	 
+	 private class DataHandler {
+	        private String data;
+
+	        public DataHandler() {
+	            data = "";   
+	        }
+	        
+	        public void addData(String newData) {
+	        	
+	        	if (!data.isEmpty()) {
+	        		data += "\n";
+	        	}
+		        data += newData;	
+	        }
+	        
+	        public String getData() {
+	            return data; 
+	        }
+	    }
+	 
+	 	
+//	    public void updateOutputArea() {
+//	        nameLabel.setText(handler.getDataAsString());
+//	    }
+//
+//	    public void addData(String newData) {
+//	    	handler.addData(newData);
+//
+//	        // Update the output area
+//	        updateOutputArea();
+//	    }
+//
+//	    private class DataHandler {
+//	        private StringBuilder data;
+//
+//	        public DataHandler() {
+//	            data = new StringBuilder();
+//	        }
+//
+//	        public void addData(String newData) {
+//	        	for (Pet p : ClinicData.getPets()) {
+//	        		data.append(p.getName()).append("\n");
+//	        	}
+//	            
+//	        }
+//
+//	        public String getDataAsString() {
+//	            return data.toString();
+//	        }
+//	    }
+	 
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		if (e.getSource() == showEntriesButton) {
+		
+			CurrentEntriesPage currentEntries = new CurrentEntriesPage();
+			currentEntries.setVisible(true);
+			
+		} else if (e.getSource() == addPetButton) {
+			
+			addPetPage.showFrame();
+			
+			
+//		} else if (e.getSource() == addServiceButton) {
+//			
+//			
+//			
+//		}
+		
+		}
+	
+	}
+}

@@ -118,7 +118,8 @@ public class LoginPage extends JFrame implements ActionListener {
 //		  		password.setText(null);
 //		  		userName.setText(null);
 //		  	}
-			MainUIPage mainUiPage = new MainUIPage();
+			MainUIPage main = new MainUIPage(null);
+			main.setVisible(true);
 //			
 		} 
       

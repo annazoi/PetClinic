@@ -1,13 +1,13 @@
 package entries;
 
 public class Service {
-	private float price;
-	private float tax;
+	private double price;
+	private double tax;
 	private String title;
 	private String category;
 	private String description;
 	
-	public Service (float price, float tax, String title, String category, String description) {
+	public Service (double price, double tax, String title, String category, String description) {
 		this.setPrice(price);
 		this.setTax(tax);
 		this.setTitle(title);
@@ -15,20 +15,20 @@ public class Service {
 		this.setDescription(description);
 	}
 
-	public float getPrice() {
+	public double getPrice() {
 		return price+tax;
 	}
 
-	public void setPrice(float price) {
-		this.price = price;
+	public void setPrice(double price2) {
+		this.price = price2;
 	}
 
-	public float getTax() {
+	public double getTax() {
 		return tax;
 	}
 
-	public void setTax(float tax) {
-		this.tax = tax;
+	public void setTax(double tax2) {
+		this.tax = tax2;
 	}
 
 	public String getTitle() {
