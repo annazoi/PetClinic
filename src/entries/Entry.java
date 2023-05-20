@@ -13,12 +13,13 @@ public class Entry {
 	JButton serviceButton = new JButton("Services");
 	JButton checkoutButton = new JButton("Checkout");
 
-	private ArrayList<Service> services = new ArrayList<Service>();
+	private ArrayList<Service> selectedServices = new ArrayList<Service>();
 	
 	Pet pet;
 	
 	public Entry (Pet pet) {
 		this.pet = pet;
+		selectedServices = new ArrayList<>();
 	}
 	
 	public String getName() {
@@ -29,22 +30,24 @@ public class Entry {
 		return pet.getIntroDate();
 	}
 
-	public ArrayList<Service> getServices() {
-		return services;
+	public ArrayList<Service> getSelectedServices() {
+		return selectedServices;
 	}
 
-	public void setServices(ArrayList<Service> services) {
-		this.services = services;
+	public void setSelectedServices(ArrayList<Service> selectedServices) {
+		this.selectedServices = selectedServices;
 	}
 	
+	public void addSelectedService(Service service) {
+	        selectedServices.add(service);
+	}
+	 
+	
+
+	
+	
 //	public double getTotalPrice () {
-//		for(Service service : services)  {
-//			service.getPrice();
-//			service.equals(getTotalPrice());
-//			
-//			return getTotalPrice;
-//			
-//		}
+//
 //	}
 	
 	

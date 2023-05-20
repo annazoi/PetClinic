@@ -13,11 +13,14 @@ public class EntryPanel extends JPanel {
 	
 	Entry entry;
 	private JButton servicesButton;
-//	private Service[] services;
+	public static Service[] servicesList;
+	
+	JCheckBox checkBox = new JCheckBox();
 	
 	public EntryPanel (Entry entry, Service[] services) {
 		this.entry = entry;
-		MainUIPage.servicesList = services;
+//		Vazoume EntryPanel anti gia this dioti einai static 
+		EntryPanel.servicesList = services;
 		setLayout(new FlowLayout());
 	
 		JLabel nameLabel = new JLabel(entry.getName());
@@ -27,7 +30,12 @@ public class EntryPanel extends JPanel {
 		add(nameLabel);
 		add(introdateLabel);
 		
-	
+		servicesList = new Service[]{
+				new Service(10, 0.24, "Washing", "Animals", "washing for all pets"),
+				new Service(20, 0.24, "grooming", "Dogs", "grooming for dogs only"),
+				new Service(10, 0.24, "nail_clipping", "Animals", "making the shots to the pet"),
+				new Service(20, 0.24, "shot", "Animals", "making the shots to the pet") 	
+		};
 		
 		
 		
@@ -40,29 +48,42 @@ public class EntryPanel extends JPanel {
 	            	
 	            }
 	        });
-		add(servicesButton);	
-	
+		add(servicesButton);
 		
 	}
 
-		
-	
-	private void servicesDialog() {
-		StringBuilder message = new StringBuilder();
-		message.append("Add Services").append(":\n");
-		
-		for (Service service : MainUIPage.servicesList) {
-			message.append(service.getTitle()).append(" - ").append(service.getPrice()).append("$ - Only for: ").append(service.getCategory()).append(" \n");
-		}
-		Object[] choices = {"Select", "Cancel"};
-		int choice = JOptionPane.showOptionDialog(this, message.toString(), "Services", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, choices, choices[0]);
-	
-		if (choice == JOptionPane.YES_OPTION ) {
+    private void servicesDialog() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(servicesList.length, 1));
+
+        JCheckBox[] checkboxes = new JCheckBox[servicesList.length];
+        for (int i = 0; i < servicesList.length; i++) {
+            checkboxes[i] = new JCheckBox(servicesList[i].getTitle() + " - $" + servicesList[i].getPrice() + " For all: " +servicesList[i].getCategory());
+            panel.add(checkboxes[i]);
+        }
+
+        int result = JOptionPane.showConfirmDialog(this, panel, "Services", JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.PLAIN_MESSAGE);
+
+        if (result == JOptionPane.OK_OPTION) {
+            ArrayList<Service> selectedServices = new ArrayList<>();
+            for (int i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].isSelected()) {
+                    selectedServices.add(servicesList[i]);
+                    entry.addSelectedService(servicesList[i]);
+                    
+                }
+            }
+
+            
+            MainUIPage.generateViewWithServices(entry);
             JOptionPane.showMessageDialog(this, "Services selected!");
-
-		}
-	}
+            
+            
+        }
+    }
 	
+    
 	
 	
 }	
