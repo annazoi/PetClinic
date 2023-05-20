@@ -1,33 +1,14 @@
 package ui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
+import java.awt.*;
+import java.awt.event.*;
+//import java.io.*;
+import java.util.ArrayList;
 
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-
-import javax.swing.BorderFactory;
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+import javax.swing.*;
 import javax.swing.border.Border;
 
-import entries.ClinicData;
-import entries.Pet;
-import entries.Service;
+import entries.*;
 
 public class MainUIPage extends JFrame implements ActionListener {
 //	auto mpike epeidi valame extends JFrame
@@ -60,17 +41,15 @@ public class MainUIPage extends JFrame implements ActionListener {
 	DataHandler handler = new DataHandler();
 	
 	private AddPetPage addPetPage;
+	private ArrayList<Entry> entries;
+	public static Service[] servicesList;
 	
 	JScrollPane scrollPetName = new JScrollPane();
 	
-//	JScrollPane scrollPane = new JScrollPane();
-	
-	static CurrentEntriesPage entries;
-	
 
-	public MainUIPage (CurrentEntriesPage entries) {
+	public MainUIPage () {
 //		MainUIPage.entries but not this.entries because entries is static variable
-		MainUIPage.entries = entries;
+//		MainUIPage.entries = entries;
 		this.init();
 	}
 	public void init () {
@@ -137,7 +116,15 @@ public class MainUIPage extends JFrame implements ActionListener {
         petListPanel.setBackground(veryDark);
         petListPanel.setBounds(10, 10, 100, 100);
         petListPanel.add(nameLabel);
+        
+        entries = new ArrayList<>();
        
+    	servicesList = new Service[]{
+				new Service(10, 0.24, "Washing", "Animal", "washing for all pets"),
+				new Service(20, 0.24, "grooming", "Dog", "grooming for dogs only"),
+				new Service(10, 0.24, "nail_clipping", "Animal", "making the shots to the pet"),
+				new Service(20, 0.24, "shot", "Animal", "making the shots to the pet") 	
+		};
 	}
 	
 	
@@ -162,39 +149,7 @@ public class MainUIPage extends JFrame implements ActionListener {
 //		 }
 //     }
 	 
-	 public void dataFromTxt () {
-			for (Service washing : ClinicData.getServicesFromTxt()) {
-			washing.setTitle("washing");
-			washing.setPrice(10);
-			washing.setTax(0.24);
-			washing.setCategory("Animal");
-			washing.setDescription("washing for all pets");
-		}
-		
-		for (Service grooming : ClinicData.getServicesFromTxt()) {
-			grooming.setTitle("grooming");
-			grooming.setPrice(20);
-			grooming.setTax(0.24);
-			grooming.setCategory("Dog");
-			grooming.setDescription("grooming for dogs only");
-		}
-		
-		for (Service nailClipping : ClinicData.getServicesFromTxt()) {
-			nailClipping.setTitle("nail_clipping");
-			nailClipping.setPrice(10);
-			nailClipping.setTax(0.24);
-			nailClipping.setCategory("Aminal");
-			nailClipping.setDescription("taking care of the pet nails/talons");
-		}
-		
-		for (Service shot : ClinicData.getServicesFromTxt()) {
-			shot.setTitle("shot");
-			shot.setPrice(20);
-			shot.setTax(0.24);
-			shot.setCategory("Animal");
-			shot.setDescription("making the shots to the pet");
-		}
-	 }
+	
 
 	 public void updateData () {
 		 nameLabel.setText("<html>" +handler.getData().replaceAll("\n", "<br>") + "</html>");
@@ -215,7 +170,7 @@ public class MainUIPage extends JFrame implements ActionListener {
 	        public void addData(String newData) {
 	        	
 	        	if (!data.isEmpty()) {
-	        		data += "\n";
+	        		data += "\n";	
 	        	}
 		        data += newData;	
 	        }
@@ -225,44 +180,39 @@ public class MainUIPage extends JFrame implements ActionListener {
 	        }
 	    }
 	 
-	 	
-//	    public void updateOutputArea() {
-//	        nameLabel.setText(handler.getDataAsString());
-//	    }
-//
-//	    public void addData(String newData) {
-//	    	handler.addData(newData);
-//
-//	        // Update the output area
-//	        updateOutputArea();
-//	    }
-//
-//	    private class DataHandler {
-//	        private StringBuilder data;
-//
-//	        public DataHandler() {
-//	            data = new StringBuilder();
-//	        }
-//
-//	        public void addData(String newData) {
-//	        	for (Pet p : ClinicData.getPets()) {
-//	        		data.append(p.getName()).append("\n");
-//	        	}
-//	            
-//	        }
-//
-//	        public String getDataAsString() {
-//	            return data.toString();
-//	        }
-//	    }
+	
 	 
+	private void showEntries() {
+		
+		
+		JFrame entriesFrame = new JFrame("Current Entries");
+		entriesFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);;
+		entriesFrame.setSize(400,200);
+		entriesFrame.setLayout(new GridLayout(entries.size(), 1));
+		
+		for (Entry entry : entries) {
+			EntryPanel entryPanel = new EntryPanel(entry, servicesList);
+			entriesFrame.add(entryPanel);
+		}
+		entriesFrame.setVisible(true);
+	
+	}
+	
+	
+			
+	public void addEntry (Entry entry) {
+		entries.add(entry);
+	}
+	
+	
+
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
 		if (e.getSource() == showEntriesButton) {
-		
-			CurrentEntriesPage currentEntries = new CurrentEntriesPage();
-			currentEntries.setVisible(true);
+			
+			showEntries();
 			
 		} else if (e.getSource() == addPetButton) {
 			

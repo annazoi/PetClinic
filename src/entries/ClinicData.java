@@ -1,18 +1,7 @@
 package entries;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.*;
-
-import javax.swing.JFileChooser;
-import javax.swing.JPanel;
-
-import entries.Pet;
-
-import ui.AddPetPage;
+import javax.swing.*;
 
 public class ClinicData {
 	private static ArrayList<Pet> pets = new ArrayList<Pet>();

@@ -1,20 +1,9 @@
 package ui;
 
 //import java.awt.event.ActionEvent;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.ImageIcon;
-//import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JFrame;  
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 
 public class LoginPage extends JFrame implements ActionListener {
   
@@ -41,6 +30,8 @@ public class LoginPage extends JFrame implements ActionListener {
       
 //      EndingListener button1 = new EndingListener();
       ImageIcon logo = new ImageIcon("logo.jpg");
+      
+      private MainUIPage main;
       
       public LoginPage () {
           this.init();
@@ -98,6 +89,8 @@ public class LoginPage extends JFrame implements ActionListener {
           loginPanel.add(labelPassword);
           loginPanel.add(loginButton);
           
+          
+          
   }
 
 //      Add unimplemented methods from class LoginPage (Because we have error)
@@ -118,9 +111,9 @@ public class LoginPage extends JFrame implements ActionListener {
 //		  		password.setText(null);
 //		  		userName.setText(null);
 //		  	}
-			MainUIPage main = new MainUIPage(null);
-			main.setVisible(true);
-//			
+			
+			main = new MainUIPage();
+			
 		} 
       
   

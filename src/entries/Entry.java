@@ -1,28 +1,32 @@
 package entries;	
 
-import java.util.ArrayList;
+import java.util.*;
 
-import javax.swing.JLabel;
+import javax.swing.*;
 
 public class Entry {
 	
 	JLabel name = new JLabel();
 	JLabel entryDate = new JLabel();
+	JLabel totalPriceLabel = new JLabel();
+	
+	JButton serviceButton = new JButton("Services");
+	JButton checkoutButton = new JButton("Checkout");
 
 	private ArrayList<Service> services = new ArrayList<Service>();
 	
 	Pet pet;
 	
-	public Entry () {
-		this.init();
+	public Entry (Pet pet) {
+		this.pet = pet;
 	}
 	
-	public void init () {
-		for (Pet pet : ClinicData.getPets()) {
-			name.setText(pet.getName());
-			entryDate.setText(pet.getIntroDate()+"");
-			
-		}
+	public String getName() {
+		return pet.getName();
+	}
+	
+	public Date getIntroDate() {
+		return pet.getIntroDate();
 	}
 
 	public ArrayList<Service> getServices() {

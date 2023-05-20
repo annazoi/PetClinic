@@ -1,32 +1,14 @@
 package ui;
 
-import java.awt.Color;
-import java.awt.Desktop.Action;
+import java.awt.*;
+import java.awt.event.*;
 import java.util.*;
-import entries.Pet;
-import entries.Pet;
-import entries.Cat;
-import entries.ClinicData;
-import entries.Dog;
-import entries.Other;
-//import entries.ClinicData;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
+import entries.*;
+import javax.swing.*;
 
 public class AddPetPage extends JFrame implements ActionListener{
 	
+	private static final long serialVersionUID = 1L;
 	Color light = new Color(148, 180, 108);
     Color dark = new Color(98, 129, 58);
     
@@ -171,7 +153,7 @@ public class AddPetPage extends JFrame implements ActionListener{
         otherRadioButton.setBackground(dark);
         otherRadioButton.addActionListener(this);
         
-        addPetButton.setBounds(320, 180, 100, 30);
+        addPetButton.setBounds(320, 160, 100, 30);
         addPetButton.setBackground(light);
         addPetButton.setFocusable(false);
 //      this->implements
@@ -228,6 +210,9 @@ public class AddPetPage extends JFrame implements ActionListener{
 				main.addData(name);
 				frame.setVisible(false);
 				
+				Entry entry = new Entry(cat);
+				main.addEntry(entry);
+				
 				
 			} else if (isDog) {
                             
@@ -256,6 +241,8 @@ public class AddPetPage extends JFrame implements ActionListener{
 					
 				main.addData(name);
 				frame.setVisible(false);
+				Entry entry = new Entry(dog);
+				main.addEntry(entry);
 				
 			} else if (isOther) {
 				
@@ -269,11 +256,18 @@ public class AddPetPage extends JFrame implements ActionListener{
 				
 				main.addData(name);
 				frame.setVisible(false);
+				Entry entry = new Entry(other);
+				main.addEntry(entry);
 				
 			}
-
+//			Gia na kanoume clear ola ta data apo to proigoumeno input dilonoume ta parakato
+			nameText.setText("");
+			ownerText.setText("");
+			ageText.setText("");
+			addressText.setText("");
+			genderGroup.clearSelection();
+			typeGroup.clearSelection();
 		}
-		
 	}
 	
 	public ArrayList<Pet> getPets() {

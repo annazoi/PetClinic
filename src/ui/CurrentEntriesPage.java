@@ -1,12 +1,7 @@
 package ui;
 
-import java.awt.BorderLayout;
-//import ui.EntryPanel;
-import java.awt.Color;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import java.awt.*;
+import javax.swing.*;
 
 public class CurrentEntriesPage extends JFrame {
 	
@@ -22,9 +17,11 @@ public class CurrentEntriesPage extends JFrame {
 	
 	JPanel panel = new JPanel();
 
+	private EntryPanel entryPanel;
 
-	public CurrentEntriesPage () {
+	public CurrentEntriesPage (EntryPanel entryPanel) {
 		this.init();
+		this.entryPanel = entryPanel;
 	}
 	
 	public void init () {
@@ -36,10 +33,10 @@ public class CurrentEntriesPage extends JFrame {
 	    frame.setLayout(borderLayout);
 	    frame.getContentPane().setBackground(light);
 	    frame.add(scroll);
-	    frame.add(new EntryPanel(null));
+	    frame.add(entryPanel);
 	    
 //	    mesa edo 8a mpei to panel apo tin entryPanel
-	    scroll.getViewport().add(new EntryPanel(null));
+//	    scroll.getViewport().add(new EntryPanel());
 	    
 	}
 }
