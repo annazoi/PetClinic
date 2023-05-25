@@ -1,15 +1,18 @@
 package ui;
 
 import java.awt.*;
+
 import java.awt.event.*;
 //import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 
 import entries.*;
+import ui.*;
 
 public class MainUIPage extends JFrame implements ActionListener {
 //	auto mpike epeidi valame extends JFrame
@@ -44,7 +47,8 @@ public class MainUIPage extends JFrame implements ActionListener {
 	
 	private AddPetPage addPetPage;
 	private ArrayList<Entry> entries;
-	private static HashMap<Entry, JLabel> entryLabel;
+	private static Map<Entry, JLabel> entryLabel;
+	private static Map <Entry, JLabel> price; 
 	
 	JScrollPane scrollPetName = new JScrollPane();
 	
@@ -122,11 +126,9 @@ public class MainUIPage extends JFrame implements ActionListener {
         entries = new ArrayList<>();
        
         entryLabel = new HashMap<>();
+        price = new HashMap<>();
     	
 	}
-	
-	 
-	
 
 	 public void updateData () {
 		 nameLabel.setText("<html>" +handler.getData().replaceAll("\n", "<br>") + "</html>");
@@ -157,9 +159,53 @@ public class MainUIPage extends JFrame implements ActionListener {
 	        }
 	    }
 	 
-	
+		
 	 
-	private void showEntries() {
+	private void currentEntries() {
+		
+		JFrame entriesFrame = new JFrame("Current Entries");
+		
+		
+		entriesFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);;
+		entriesFrame.setSize(400,200);
+		entriesFrame.setLayout(new GridLayout());
+//		entriesFrame.setLayout(new BoxLayout(entriesFrame, BoxLayout.Y_AXIS));
+
+		JPanel entriesPanel = new JPanel();
+	    entriesPanel.setLayout(new BoxLayout(entriesPanel, BoxLayout.Y_AXIS));
+		
+		for (Entry entry : entries) {
+			EntryPanel entryPanel = new EntryPanel(entry, EntryPanel.servicesList);
+			entriesFrame.add(entryPanel);
+			entryPanel.setBackground(dark);
+			
+			EntryPanel.displayTotalPrice();
+			
+			entriesPanel.add(entryPanel);
+			
+		    
+
+		}
+		entriesFrame.add(entriesPanel);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		JViewport viewport = new JViewport();
+		
+		viewport.setView(entriesPanel);
+//		viewport.setView(entriesFrame);
+		
+		scrollPane.setViewport(viewport);
+		
+		entriesFrame.getContentPane().add(scrollPane);
+		
+//		entriesFrame.getContentPane().add(viewport);
+		
+		entriesFrame.setVisible(true);
+		
+		
+	}
+	
+private void showEntries() {
 		
 		JFrame entriesFrame = new JFrame("Current Entries");
 		entriesFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);;
@@ -169,25 +215,32 @@ public class MainUIPage extends JFrame implements ActionListener {
 		for (Entry entry : entries) {
 			EntryPanel entryPanel = new EntryPanel(entry, EntryPanel.servicesList);
 			entriesFrame.add(entryPanel);
+//			Entrypane;.displayTotalPrice();
 		}
 		entriesFrame.setVisible(true);
+		
 	
 	}
-		
+			
 	public void addEntry (Entry entry) {
 		entries.add(entry);
 	}
+	
 	
 	public static void generateViewWithServices(Entry entry) {
 		ArrayList<Service> selectedServices = entry.getSelectedServices();
 		StringBuilder sb = new StringBuilder();
 		
-		JLabel label = new JLabel();
-	
-		label = new JLabel();
+		JLabel titleLabel = new JLabel();
+		JLabel priceLabel = new JLabel();
 		
-		entryLabel.put(entry, label);
-		servicesPanel.add(label);
+		
+		double totalPrice = 0.0;
+		
+		entryLabel.put(entry, titleLabel);
+		
+		
+		servicesPanel.add(titleLabel);
 		
 		sb.append(entry.getName()).append(" ");
 		
@@ -196,13 +249,19 @@ public class MainUIPage extends JFrame implements ActionListener {
         } else {
             for (Service service : selectedServices) {
                 sb.append(service.getTitle()).append(", ");
+                totalPrice += service.getPrice();
             }
-            // Remove the trailing comma and space
-            sb.setLength(sb.length() - 2);
+            // Afairoume to keno k to komma st telos
+            sb.setLength(sb.length() - 1);
         }
-		label.setText(sb.toString());
-		servicesPanel.add(label);
+		titleLabel.setText(sb.toString());
 		
+	    // Kanoume update to label mazi me tin teliki timi
+	    priceLabel = entryLabel.get(entry);
+	    priceLabel.setText(sb.toString() + "Total Price: " + totalPrice + "$");
+		
+		
+
 	}
 	
 
@@ -212,7 +271,7 @@ public class MainUIPage extends JFrame implements ActionListener {
 		
 		if (e.getSource() == showEntriesButton) {
 			
-			showEntries();
+			currentEntries();
 			
 		} else if (e.getSource() == addPetButton) {
 			

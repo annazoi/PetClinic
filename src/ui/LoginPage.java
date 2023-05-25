@@ -34,6 +34,7 @@ public class LoginPage extends JFrame implements ActionListener {
       private MainUIPage main;
       
       public LoginPage () {
+//    	  initialize
           this.init();
       }
   

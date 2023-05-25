@@ -1,6 +1,7 @@
 package ui;
 
 import java.awt.*;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -11,9 +12,12 @@ import ui.*;
 
 public class EntryPanel extends JPanel {
 	
-	Entry entry;
+	private Entry entry;
 	private JButton servicesButton;
 	public static Service[] servicesList;
+	private JButton checkoutButton;
+	
+	private static JLabel totalPriceLabel;
 	
 	JCheckBox checkBox = new JCheckBox();
 	
@@ -30,6 +34,8 @@ public class EntryPanel extends JPanel {
 		add(nameLabel);
 		add(introdateLabel);
 		
+		
+		
 		servicesList = new Service[]{
 				new Service(10, 0.24, "Washing", "Animals", "washing for all pets"),
 				new Service(20, 0.24, "grooming", "Dogs", "grooming for dogs only"),
@@ -38,10 +44,9 @@ public class EntryPanel extends JPanel {
 		};
 		
 		
-		
-		servicesButton = new JButton("Services");
-		
 		 servicesButton = new JButton("Services");
+		 servicesButton.setFocusable(false);
+		 servicesButton.setBackground(MainUIPage.light);
 	     servicesButton.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent e) {
 	            	servicesDialog();
@@ -50,8 +55,26 @@ public class EntryPanel extends JPanel {
 	        });
 		add(servicesButton);
 		
+		totalPriceLabel = new JLabel();
+		add(totalPriceLabel);
+		
+		checkoutButton = new JButton("Checkout");
+		servicesButton.setFocusable(false);
+		servicesButton.setBackground(MainUIPage.light);
+		add(checkoutButton);
+		
+	}
+	
+	public static void displayTotalPrice() {
+		double totalPrice = 0.0;
+		for (Service s: Entry.getSelectedServices()) {
+			totalPrice += s.getPrice();
+		}
+		totalPriceLabel.setText(" "+totalPrice);
 	}
 
+	
+	
     private void servicesDialog() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(servicesList.length, 1));
