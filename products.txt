@@ -1,0 +1,4 @@
+washing 10 0.24 animal washing for all pets
+grooming 20 0.24 grooming for dogs only
+nail_clipping 10 0.24 taking care of the pet nails/talons
+shot 20 0.24 making the shots to the pet

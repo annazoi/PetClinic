@@ -156,7 +156,6 @@ public class AddPetPage extends JFrame implements ActionListener{
         addPetButton.setBounds(320, 160, 100, 30);
         addPetButton.setBackground(light);
         addPetButton.setFocusable(false);
-//      this->implements
         addPetButton.addActionListener(this);
         
         genderGroup.add(maleRadioButton);
@@ -260,7 +259,6 @@ public class AddPetPage extends JFrame implements ActionListener{
 				main.addEntry(entry);
 				
 			}
-//			Gia na kanoume clear ola ta data apo to proigoumeno input dilonoume ta parakato
 			nameText.setText("");
 			ownerText.setText("");
 			ageText.setText("");

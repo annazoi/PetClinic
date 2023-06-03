@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.*;
 import entries.*;
@@ -17,18 +19,22 @@ public class EntryPanel extends JPanel {
 	public static Service[] servicesList;
 	private JButton checkoutButton;
 	
-	private static JLabel totalPriceLabel;
+	private JLabel totalPriceLabel;
 	
 	JCheckBox checkBox = new JCheckBox();
+
+	private ArrayList<Service> selectedServices = new ArrayList<Service>();
+	
+	private static Map<Entry, JLabel> entryLabel;
+	
+	
 	
 	public EntryPanel (Entry entry, Service[] services) {
 		this.entry = entry;
-//		Vazoume EntryPanel anti gia this dioti einai static 
 		EntryPanel.servicesList = services;
 		setLayout(new FlowLayout());
 	
 		JLabel nameLabel = new JLabel(entry.getName());
-//	Epeidi einai tupou Date to metatrepoume se string
 		JLabel introdateLabel = new JLabel(entry.getIntroDate()+"");
 		
 		add(nameLabel);
@@ -63,17 +69,68 @@ public class EntryPanel extends JPanel {
 		servicesButton.setBackground(MainUIPage.light);
 		add(checkoutButton);
 		
+		selectedServices = new ArrayList<>();
+		
+		entryLabel = new HashMap<>();
+		
 	}
 	
-	public static void displayTotalPrice() {
+	public ArrayList<Service> getSelectedServices() {
+		return selectedServices;
+	}
+
+	public void setSelectedServices(ArrayList<Service> selectedServices) {
+		this.selectedServices = selectedServices;
+	}
+	
+	public void addSelectedService(Service service) {
+	        selectedServices.add(service);
+	}
+	
+	public void displayTotalPrice() {
 		double totalPrice = 0.0;
-		for (Service s: Entry.getSelectedServices()) {
+		for (Service s: getSelectedServices()) {
 			totalPrice += s.getPrice();
 		}
 		totalPriceLabel.setText(" "+totalPrice);
 	}
 
-	
+	public void generateViewWithServices(Entry entry) {
+		
+		ArrayList<Service> selectedServices = getSelectedServices();
+		StringBuilder sb = new StringBuilder();
+		
+		JLabel titleLabel = new JLabel();
+		JLabel priceLabel = new JLabel();
+		
+		
+		double totalPrice = 0.0;
+		
+		entryLabel.put(entry, titleLabel);
+		
+		
+		MainUIPage.servicesPanel.add(titleLabel);
+		
+		sb.append(entry.getName()).append(" ");
+		
+		if (selectedServices.isEmpty()) {
+            sb.append("No services selected");
+        } else {
+            for (Service service : selectedServices) {
+                sb.append(service.getTitle()).append(", ");
+                totalPrice += service.getPrice();
+            }
+            sb.setLength(sb.length() - 1);
+        }
+		
+		titleLabel.setText(sb.toString());
+		
+	    priceLabel = entryLabel.get(entry);
+	    priceLabel.setText(sb.toString() + "Total Price: " + totalPrice + "$");
+		
+		
+
+	}
 	
     private void servicesDialog() {
         JPanel panel = new JPanel();
@@ -93,13 +150,13 @@ public class EntryPanel extends JPanel {
             for (int i = 0; i < checkboxes.length; i++) {
                 if (checkboxes[i].isSelected()) {
                     selectedServices.add(servicesList[i]);
-                    entry.addSelectedService(servicesList[i]);
+                    addSelectedService(servicesList[i]);
                     
                 }
             }
 
             
-            MainUIPage.generateViewWithServices(entry);
+            generateViewWithServices(entry);
             JOptionPane.showMessageDialog(this, "Services selected!");
             
             

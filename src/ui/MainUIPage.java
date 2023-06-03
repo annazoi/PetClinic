@@ -15,7 +15,6 @@ import entries.*;
 import ui.*;
 
 public class MainUIPage extends JFrame implements ActionListener {
-//	auto mpike epeidi valame extends JFrame
 	private static final long serialVersionUID = 1L;
 	
 	static Color light = new Color(148, 180, 108);
@@ -31,11 +30,10 @@ public class MainUIPage extends JFrame implements ActionListener {
 	JPanel services = new JPanel();
 	JPanel buttonsPanel = new JPanel();
 	JPanel petListPanel = new JPanel();
+	
 	static JPanel servicesPanel = new JPanel();
 	
 	JButton addPetButton = new JButton("Add Pet");
-//	Vazoume agkiles <html> gia na kanei new line kai na fainetai olo to text stis mikres diastaseis tou button
-//	An 8elame na to kopsoume se sugkekrimeno simeio 8a legame (<html>Add Service<br> </br>to Pet</html>")
 	JButton addServiceButton = new JButton("<html>Add Service to Pet</html>");
 	JButton showEntriesButton = new JButton("<html>Show entries</html>");
 	
@@ -47,15 +45,12 @@ public class MainUIPage extends JFrame implements ActionListener {
 	
 	private AddPetPage addPetPage;
 	private ArrayList<Entry> entries;
-	private static Map<Entry, JLabel> entryLabel;
-	private static Map <Entry, JLabel> price; 
+	
 	
 	JScrollPane scrollPetName = new JScrollPane();
 	
 
 	public MainUIPage () {
-//		MainUIPage.entries but not this.entries because entries is static variable
-//		MainUIPage.entries = entries;
 		this.init();
 	}
 	public void init () {
@@ -95,11 +90,9 @@ public class MainUIPage extends JFrame implements ActionListener {
         
         servicesPanel.setBounds(120, 30, 480, 370);
         servicesPanel.setBackground(dark);
-        servicesPanel.setBorder(border);
-//      grid -> GridLayout 3X3  
+        servicesPanel.setBorder(border); 
         servicesPanel.setLayout(grid);
         
-//        set buttons
         
         addPetButton.setBackground(light);
         addPetButton.setFocusable(false);
@@ -125,8 +118,7 @@ public class MainUIPage extends JFrame implements ActionListener {
         
         entries = new ArrayList<>();
        
-        entryLabel = new HashMap<>();
-        price = new HashMap<>();
+        
     	
 	}
 
@@ -169,7 +161,6 @@ public class MainUIPage extends JFrame implements ActionListener {
 		entriesFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);;
 		entriesFrame.setSize(400,200);
 		entriesFrame.setLayout(new GridLayout());
-//		entriesFrame.setLayout(new BoxLayout(entriesFrame, BoxLayout.Y_AXIS));
 
 		JPanel entriesPanel = new JPanel();
 	    entriesPanel.setLayout(new BoxLayout(entriesPanel, BoxLayout.Y_AXIS));
@@ -179,7 +170,7 @@ public class MainUIPage extends JFrame implements ActionListener {
 			entriesFrame.add(entryPanel);
 			entryPanel.setBackground(dark);
 			
-			EntryPanel.displayTotalPrice();
+			entryPanel.displayTotalPrice();
 			
 			entriesPanel.add(entryPanel);
 			
@@ -205,64 +196,14 @@ public class MainUIPage extends JFrame implements ActionListener {
 		
 	}
 	
-private void showEntries() {
-		
-		JFrame entriesFrame = new JFrame("Current Entries");
-		entriesFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);;
-		entriesFrame.setSize(400,200);
-		entriesFrame.setLayout(new GridLayout(entries.size(), 1));
-		
-		for (Entry entry : entries) {
-			EntryPanel entryPanel = new EntryPanel(entry, EntryPanel.servicesList);
-			entriesFrame.add(entryPanel);
-//			Entrypane;.displayTotalPrice();
-		}
-		entriesFrame.setVisible(true);
-		
-	
-	}
+
 			
 	public void addEntry (Entry entry) {
 		entries.add(entry);
 	}
 	
 	
-	public static void generateViewWithServices(Entry entry) {
-		ArrayList<Service> selectedServices = entry.getSelectedServices();
-		StringBuilder sb = new StringBuilder();
-		
-		JLabel titleLabel = new JLabel();
-		JLabel priceLabel = new JLabel();
-		
-		
-		double totalPrice = 0.0;
-		
-		entryLabel.put(entry, titleLabel);
-		
-		
-		servicesPanel.add(titleLabel);
-		
-		sb.append(entry.getName()).append(" ");
-		
-		if (selectedServices.isEmpty()) {
-            sb.append("No services selected");
-        } else {
-            for (Service service : selectedServices) {
-                sb.append(service.getTitle()).append(", ");
-                totalPrice += service.getPrice();
-            }
-            // Afairoume to keno k to komma st telos
-            sb.setLength(sb.length() - 1);
-        }
-		titleLabel.setText(sb.toString());
-		
-	    // Kanoume update to label mazi me tin teliki timi
-	    priceLabel = entryLabel.get(entry);
-	    priceLabel.setText(sb.toString() + "Total Price: " + totalPrice + "$");
-		
-		
-
-	}
+	
 	
 
 	

@@ -16,7 +16,7 @@ public class Service {
 	}
 
 	public double getPrice() {
-		return price+tax;
+		return (price*tax)+price;
 	}
 
 	public void setPrice(double price2) {
@@ -54,8 +54,6 @@ public class Service {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	
-    
-	
+
+
 }
