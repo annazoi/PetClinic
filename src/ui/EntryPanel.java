@@ -126,7 +126,7 @@ public class EntryPanel extends JPanel {
 		titleLabel.setText(sb.toString());
 		
 	    priceLabel = entryLabel.get(entry);
-	    priceLabel.setText(sb.toString() + "Total Price: " + totalPrice + "$");
+	    priceLabel.setText(sb.toString() + "\nTotal Price: " + totalPrice + "$");
 		
 		
 
@@ -151,6 +151,7 @@ public class EntryPanel extends JPanel {
                 if (checkboxes[i].isSelected()) {
                     selectedServices.add(servicesList[i]);
                     addSelectedService(servicesList[i]);
+                    displayTotalPrice();
                     
                 }
             }
