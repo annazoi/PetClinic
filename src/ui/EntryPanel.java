@@ -23,8 +23,6 @@ public class EntryPanel extends JPanel {
 	private JLabel totalPriceLabel;
 	
 	JCheckBox checkBox = new JCheckBox();
-	
-	MainUIPage main = new MainUIPage();
 
 	private ArrayList<Service> selectedServices = new ArrayList<Service>();
 	
