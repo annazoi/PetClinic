@@ -7,15 +7,16 @@ import javax.swing.*;
 
 public class LoginPage extends JFrame implements ActionListener {
   
-      JFrame frame = new JFrame();
+      private static final long serialVersionUID = 1L;
+
+	JFrame frame = new JFrame();
       
       Color light = new Color(148, 180, 108);
       Color dark = new Color(98, 129, 58);
-      
-//      New label (text inside frame)
+
       JLabel loginLabel = new JLabel();
 
-//      New panel (function)
+
       JPanel loginPanel = new JPanel();
       
       
@@ -94,7 +95,7 @@ public class LoginPage extends JFrame implements ActionListener {
           
   }
 
-//      Add unimplemented methods from class LoginPage (Because we have error)
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
 		

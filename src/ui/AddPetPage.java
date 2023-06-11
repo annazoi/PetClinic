@@ -34,8 +34,6 @@ public class AddPetPage extends JFrame implements ActionListener{
     JRadioButton needHaircatFalse = new JRadioButton();
     
    
-    
-//    Xrisimopoioume ButtonGroup gia na exoyme mono mia epilogi se ka8e omada apo RadioButton
     ButtonGroup genderGroup  = new ButtonGroup();
     ButtonGroup typeGroup = new ButtonGroup();
     ButtonGroup needHaircatGroup = new ButtonGroup();
@@ -215,7 +213,7 @@ public class AddPetPage extends JFrame implements ActionListener{
 				
 			} else if (isDog) {
                             
-				int a = JOptionPane.showConfirmDialog(radioButtonPanel,"Dog needs Haircat?" , "For Dog", JOptionPane.YES_NO_OPTION);
+				int a = JOptionPane.showConfirmDialog(textFieldPanel,"Dog needs Haircat?" , "For Dog", JOptionPane.YES_NO_OPTION);
 
                 boolean isNeedHaircat = needHaircatTrue.isSelected();
 
@@ -223,7 +221,7 @@ public class AddPetPage extends JFrame implements ActionListener{
                 	
                     needHaircatTrue.setSelected(true);
 //                    System.out.print("Yes needs Haircat");
-                                
+                                                    
                 } else if (a == JOptionPane.NO_OPTION){
                     needHaircatTrue.setSelected(false);
 //                    System.out.print("Doesn't need Haircat");

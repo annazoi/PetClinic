@@ -7,8 +7,8 @@ public class CashPayment extends Payment {
 
     public CashPayment () {}
 
-    public CashPayment (int paymentAmount, String coin, Date peymentDate, int cashNumber) {
-        super(paymentAmount, coin, peymentDate);
+    public CashPayment (double paymentAmount, String coin, Date paymentDate, int cashNumber) {
+        super(paymentAmount, coin, paymentDate);
         this.cashNumber = cashNumber;
     }
     
@@ -19,4 +19,9 @@ public class CashPayment extends Payment {
     public void setCashNumber (int cashNumber) {
         this.cashNumber = cashNumber;
     }  
+    
+    @Override
+    public String toString() {
+    	return "[Total Price: " + getPaymentAmount() +"] [Coin: " + getCoin() +"] [Payment Day: " + getPaymentDate() + "] [" + getCashNumber() + "] " ;
+    }
 }

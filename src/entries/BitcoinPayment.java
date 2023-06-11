@@ -7,7 +7,7 @@ public class BitcoinPayment extends Payment {
 
     public BitcoinPayment () {}
 
-    public BitcoinPayment (int paymentAmount, String coin, Date peymentDate, int extraCharge) {
+    public BitcoinPayment (double paymentAmount, String coin, Date peymentDate, int extraCharge) {
         super(paymentAmount, coin, peymentDate);
         this.extraCharge = extraCharge;
     }

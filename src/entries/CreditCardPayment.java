@@ -9,7 +9,7 @@ public class CreditCardPayment extends Payment {
    
     public CreditCardPayment () {}
 
-    public CreditCardPayment(int paymentAmount, String coin, Date peymentDate, int numberCard, String nameOwner, int securityCode) {
+    public CreditCardPayment(double paymentAmount, String coin, Date peymentDate, int numberCard, String nameOwner, int securityCode) {
         super(paymentAmount, coin, peymentDate);
         this.numberCard = numberCard;
         this.nameOwner = nameOwner;
@@ -38,6 +38,11 @@ public class CreditCardPayment extends Payment {
 
     public void setSecurityCode(int securityCode) {
         this.securityCode = securityCode;
+    }
+    
+    @Override
+    public String toString () {
+    	return "[Total Price: " + getPaymentAmount() +"] [Coin: " + getCoin() +"] [Payment Day: " + getPaymentDate() + "] [Number Card: " +getNumberCard()+ "] [Owner Name: " +getNameOwner() + "] [Security Code: " +getSecurityCode();
     }
 }
     

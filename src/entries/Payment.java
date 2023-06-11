@@ -3,19 +3,19 @@ package entries;
 import java.util.Date;
 
 public abstract class Payment {
-    private int paymentAmount;
+    private double paymentAmount;
     private String coin;
-    private Date peymentDate;
+    private Date paymentDate;
     
     public Payment () {}
 
-    public Payment(int paymentAmount, String coin, Date peymentDate) {
+    public Payment(double paymentAmount, String coin, Date paymentDate) {
         this.paymentAmount = paymentAmount;
         this.coin = coin;
-        this.peymentDate = peymentDate;
+        this.paymentDate = paymentDate;
     }
 
-    public int getPaymentAmount() {
+    public double getPaymentAmount() {
         return paymentAmount;
     }
 
@@ -31,13 +31,15 @@ public abstract class Payment {
         this.coin = coin;
     }
 
-    public Date getPeymentDate() {
-        return peymentDate;
+    public Date getPaymentDate() {
+        return paymentDate;
     }
 
-    public void setPeymentDate(Date peymentDate) {
-        this.peymentDate = peymentDate;
+    public void setPeymentDate(Date paymentDate) {
+        this.paymentDate = paymentDate;
     }
     
-    
+    public String toString () {
+    	return "[Total Price: " + getPaymentAmount() +"] [Coin: " + getCoin() +"] [Payment Day: " + getPaymentDate() + "] ";
+    }
 }
